@@ -74,7 +74,7 @@ function onImageLoad() {
 
         function updateObstacles() {
             for (let i = obstacles.length - 1; i >= 0; i--) {
-                obstacles[i].x -= 8;
+                obstacles[i].x -= 7;
 
                 // Comprobar si el obstáculo ha sido superado
                 if (!obstacles[i].passed && obstacles[i].x + obstacles[i].width < player.x) {
@@ -99,7 +99,7 @@ function onImageLoad() {
         function drawScore() {
             ctx.fillStyle = 'black';
             ctx.font = '24px Arial';
-            ctx.fillText('Score: ' + score, canvas.width / 2 -200 , 60);
+            ctx.fillText('Score: ' + score, canvas.width / 2 -160 , 60);
             ctx.fillText('High Score: ' + highScore, canvas.width / 2  , 60);
         }
 

@@ -6,7 +6,7 @@ body, html {
 
 canvas {
     display: block;
-    background-color: #ffffed;
+    background-color: #e5e3d0;
     width: 100%;
     height: 100vh;
 }

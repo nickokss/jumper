@@ -3,7 +3,7 @@ class Player {
     constructor(ctx, canvasHeight, skaterImage, skaterJumpingImage) {
         this.ctx = ctx;
         this.canvasHeight = canvasHeight;
-        this.x = 200; // La posición X
+        this.x = 30; // La posición X
         this.y = (this.canvasHeight / 2); 
         console.log(canvasHeight);
         this.width = 100; // El ancho del patinador
