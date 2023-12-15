@@ -134,7 +134,7 @@ function onImageLoad() {
             ctx.font = '20px Arial'; // Elige el tamaño de la fuente y el estilo
             const textWidth = ctx.measureText(text).width;
             const xPosition = (canvas.width - textWidth) / 2; // Centrar el texto en el eje X
-            const yPosition = canvas.height - 60; // Coloca el texto 30px arriba del fondo del canvas
+            const yPosition = canvas.height - 80; // Coloca el texto 30px arriba del fondo del canvas
         
             ctx.fillText(text, xPosition, yPosition);
         }
