@@ -3,7 +3,7 @@ import Player from './player.js';
 
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
-const minObstacleSeparation = 300;
+const minObstacleSeparation = 400;
 
 let score = 0;
 let highScore = 0;
@@ -40,7 +40,7 @@ function onImageLoad() {
             const image = obstacleImages[Math.floor(Math.random() * obstacleImages.length)];
             const obstacle = {
                 x: nextObstacleX,
-                y: canvas.height / 2 + 48,
+                y: canvas.height / 2 + 96,
                 width: 50,
                 height: 50,
                 image: image
@@ -51,7 +51,7 @@ function onImageLoad() {
 
         //Dibuja el suelo
         function drawRoad() {
-            const roadY = canvas.height / 2 + 97;
+            const roadY = canvas.height / 2 +145;
             const roadHeight = 1000; // El grosor de la carretera
         
             ctx.fillStyle = 'black';
@@ -74,7 +74,7 @@ function onImageLoad() {
 
         function updateObstacles() {
             for (let i = obstacles.length - 1; i >= 0; i--) {
-                obstacles[i].x -= 7;
+                obstacles[i].x -= 6;
 
                 // Comprobar si el obstáculo ha sido superado
                 if (!obstacles[i].passed && obstacles[i].x + obstacles[i].width < player.x) {
@@ -99,14 +99,14 @@ function onImageLoad() {
         function drawScore() {
             ctx.fillStyle = 'black';
             ctx.font = '24px Arial';
-            ctx.fillText('Score: ' + score, canvas.width / 2 -160 , 60);
+            ctx.fillText('Score: ' + score, canvas.width / 2 -140 , 60);
             ctx.fillText('High Score: ' + highScore, canvas.width / 2  , 60);
         }
 
         function gameOver() {
             ctx.fillStyle = 'black';
             ctx.font = '40px Arial';
-            ctx.fillText('Game Over', canvas.width / 2 -100, canvas.height / 2 -40);
+            ctx.fillText('Game Over', canvas.width / 2 -100, canvas.height / 2 -80);
 
             // Muestra el botón de reinicio
             const restartButton = document.getElementById('restartButton');
@@ -125,6 +125,18 @@ function onImageLoad() {
         
             // Inicia nuevamente el bucle del juego
             requestAnimationFrame(gameLoop);
+        }
+
+        //Instrucciones del juego
+        function drawTapToJumpText() {
+            const text = "Tap the screen to jump";
+            ctx.fillStyle = 'white'; // Elige el color del texto
+            ctx.font = '20px Arial'; // Elige el tamaño de la fuente y el estilo
+            const textWidth = ctx.measureText(text).width;
+            const xPosition = (canvas.width - textWidth) / 2; // Centrar el texto en el eje X
+            const yPosition = canvas.height - 60; // Coloca el texto 30px arriba del fondo del canvas
+        
+            ctx.fillText(text, xPosition, yPosition);
         }
 
         document.getElementById('restartButton').addEventListener('click', function() {
@@ -149,6 +161,7 @@ function onImageLoad() {
             drawObstacles();
             player.update();
             updateObstacles();
+            drawTapToJumpText();
 
             for (let obstacle of obstacles) {
                 if (checkCollision(player, obstacle)) {
@@ -168,11 +181,11 @@ function onImageLoad() {
 
 skaterImage.onload = onImageLoad;
 skaterJumpingImage.onload = onImageLoad;
-skaterImage.src = '../assets/images/patinando-sb.png';
-skaterJumpingImage.src = '../assets/images/salto-sb.png';
 coneImage.onload = onImageLoad;
 barrelImage.onload = onImageLoad;
 bushImage.onload = onImageLoad;
+skaterImage.src = '../assets/images/patinando-sb.png';
+skaterJumpingImage.src = '../assets/images/salto-sb.png';
 coneImage.src = '../assets/images/barrel.png';
 barrelImage.src = '../assets/images/cono.png';
 bushImage.src = '../assets/images/bush.png';

@@ -3,9 +3,8 @@ class Player {
     constructor(ctx, canvasHeight, skaterImage, skaterJumpingImage) {
         this.ctx = ctx;
         this.canvasHeight = canvasHeight;
-        this.x = 30; // La posición X
-        this.y = (this.canvasHeight / 2); 
-        console.log(canvasHeight);
+        this.x = 20; // La posición X
+        this.y = (this.canvasHeight / 2 + 48); 
         this.width = 100; // El ancho del patinador
         this.height = 100; // El alto del patinador
         
@@ -34,8 +33,8 @@ class Player {
         this.y += this.velocityY;
 
         // Asegurarse de que el patinador no caiga por debajo del suelo
-        if (this.y >= this.canvasHeight / 2 ) {
-            this.y = this.canvasHeight / 2;
+        if (this.y >= this.canvasHeight / 2 +48) {
+            this.y = this.canvasHeight / 2 +48;
             this.velocityY = 0;
             this.isJumping = false;
         }
