@@ -33,7 +33,7 @@ class Player {
         this.velocityY += this.gravity;
         this.y += this.velocityY;
 
-        // Asegúrate de que el patinador no caiga por debajo del suelo
+        // Asegurarse de que el patinador no caiga por debajo del suelo
         if (this.y >= this.canvasHeight / 2 ) {
             this.y = this.canvasHeight / 2;
             this.velocityY = 0;
