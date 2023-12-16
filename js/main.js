@@ -89,10 +89,15 @@ function onImageLoad() {
         }
 
         function checkCollision(player, obstacle) {
-            return player.x < obstacle.x + obstacle.width &&
-                player.x + player.width > obstacle.x &&
-                player.y < obstacle.y + obstacle.height &&
-                player.y + player.height > obstacle.y;
+            // Ajusta estos valores para hacer la hitbox más pequeña
+            const hitboxPadding = 15; // Reduce la hitbox en 5 píxeles por cada lado, por ejemplo
+        
+            return (
+                player.x < obstacle.x + obstacle.width - hitboxPadding &&
+                player.x + player.width > obstacle.x + hitboxPadding &&
+                player.y < obstacle.y + obstacle.height - hitboxPadding &&
+                player.y + player.height > obstacle.y + hitboxPadding
+            );
         }
 
         //Pinta el score(record)
@@ -106,7 +111,7 @@ function onImageLoad() {
         function gameOver() {
             ctx.fillStyle = 'black';
             ctx.font = '40px Arial';
-            ctx.fillText('Game Over', canvas.width / 2 -100, canvas.height / 2 -80);
+            ctx.fillText('Game Over', canvas.width / 2 -100, canvas.height / 2 -100);
 
             // Muestra el botón de reinicio
             const restartButton = document.getElementById('restartButton');
@@ -134,7 +139,7 @@ function onImageLoad() {
             ctx.font = '20px Arial'; // Elige el tamaño de la fuente y el estilo
             const textWidth = ctx.measureText(text).width;
             const xPosition = (canvas.width - textWidth) / 2; // Centrar el texto en el eje X
-            const yPosition = canvas.height - 80; // Coloca el texto 30px arriba del fondo del canvas
+            const yPosition = canvas.height - 100; // Coloca el texto 30px arriba del fondo del canvas
         
             ctx.fillText(text, xPosition, yPosition);
         }

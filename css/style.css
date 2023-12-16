@@ -10,3 +10,17 @@ canvas {
     width: 100%;
     height: 100vh;
 }
+
+#restartButton {
+    background-color: black; /* Fondo negro */
+    color: white;           /* Texto blanco */
+    border: none;           /* Sin borde */
+    padding: 10px 20px;     /* Espaciado interno */
+    text-align: center;     /* Texto centrado */
+    text-decoration: none;  /* Sin subrayado en el texto */
+    display: inline-block;  /* Comportamiento de bloque en línea */
+    font-size: 16px;        /* Tamaño del texto */
+    margin: 4px 2px;        /* Margen alrededor del botón */
+    cursor: pointer;        /* Cursor de mano al pasar por encima */
+    border-radius: 5px;     /* Bordes redondeados */
+}
