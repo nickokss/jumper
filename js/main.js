@@ -21,13 +21,14 @@ const skaterJumpingImage = new Image();
 const coneImage = new Image();
 const barrelImage = new Image();
 const bushImage = new Image();
+const birdImage = new Image();
 
 // Asegurarnos de que ambas imágenes se carguen antes de iniciar el juego
 let imagesLoaded = 0;
 let lastObstacleX = -minObstacleSeparation;
 function onImageLoad() {
     imagesLoaded++;
-    if (imagesLoaded === 5) {
+    if (imagesLoaded === 6) {
         // Todas las imágenes están cargadas, por lo que se puede iniciar el juego
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
@@ -39,13 +40,20 @@ function onImageLoad() {
             const nextObstacleX = Math.max(
                 canvas.width,
                 lastObstacleX + minObstacleSeparation + Math.random() * minObstacleSeparation
-            ); // Asegura una distancia mínima desde el último obstáculo
+            );
         
-            const obstacleImages = [coneImage, barrelImage, bushImage];
+            // Decide aleatoriamente si el próximo obstáculo será un pájaro
+            const isBird = Math.random() < 0.15; // 15% de posibilidades de que sea un pájaro
+        
+            const obstacleImages = isBird ? [birdImage] : [coneImage, barrelImage, bushImage];
             const image = obstacleImages[Math.floor(Math.random() * obstacleImages.length)];
+            
+            // Si es un pájaro, ajusta la posición Y para que vuele más alto
+            const obstacleY = isBird ? (canvas.height / 2) : (canvas.height / 2 + 96); // Ajusta a 1/4 de la altura para los pájaros
+            
             const obstacle = {
                 x: nextObstacleX,
-                y: canvas.height / 2 + 96,
+                y: obstacleY,
                 width: 50,
                 height: 50,
                 image: image
@@ -53,6 +61,7 @@ function onImageLoad() {
             obstacles.push(obstacle);
             scheduleNextObstacle(); // Programar el próximo obstáculo
         }
+        
 
         //Dibuja el suelo
         function drawRoad() {
@@ -118,6 +127,8 @@ function onImageLoad() {
         
             // Verifica si la puntuación aumentó en 10 puntos
             if (score % 10 === 0) {
+                pointsSound.currentTime = 0; 
+                pointsSound.play();
                 showPlusTen = true;
                 plusTenTimer = 120; // 2 segundos en frames (suponiendo 60fps)
                 plusTenPosition.x = canvas.width / 2 - 45; // Ajusta según donde quieras mostrar el mensaje
@@ -130,7 +141,6 @@ function onImageLoad() {
                 ctx.fillStyle = '#505F32'; // Elige el color del texto
                 ctx.font = '40px Arial'; // Elige el tamaño y estilo de la fuente
                 ctx.fillText('+10', plusTenPosition.x, plusTenPosition.y);
-        
                 plusTenTimer--;
                 if (plusTenTimer <= 0) {
                     showPlusTen = false;
@@ -194,10 +204,10 @@ function onImageLoad() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawRoad();
             drawObstacles();
+            drawPlusTen();
             player.update();
             updateObstacles();
             drawTapToJumpText();
-            drawPlusTen();
 
             for (let obstacle of obstacles) {
                 if (checkCollision(player, obstacle)) {
@@ -222,8 +232,10 @@ skaterJumpingImage.onload = onImageLoad;
 coneImage.onload = onImageLoad;
 barrelImage.onload = onImageLoad;
 bushImage.onload = onImageLoad;
+birdImage.onload = onImageLoad;
 skaterImage.src = '../assets/images/patinando-sb.png';
 skaterJumpingImage.src = '../assets/images/salto-sb.png';
-coneImage.src = '../assets/images/barrel.png';
-barrelImage.src = '../assets/images/cono.png';
-bushImage.src = '../assets/images/bush.png';
+coneImage.src = '../assets/images/barrel-gg.png';
+barrelImage.src = '../assets/images/cono-gg.png';
+bushImage.src = '../assets/images/bush-gg.png';
+birdImage.src = '../assets/images/pajaro-gg.png';
