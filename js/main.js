@@ -9,6 +9,11 @@ let score = 0;
 let highScore = 0;
 let gameRunning = true;
 
+//+10 points
+let showPlusTen = false;
+let plusTenTimer = 0;
+let plusTenPosition = { x: 0, y: 0 };
+
 // Carga imágenes del patinador
 const skaterImage = new Image();
 const skaterJumpingImage = new Image();
@@ -75,18 +80,18 @@ function onImageLoad() {
         function updateObstacles() {
             for (let i = obstacles.length - 1; i >= 0; i--) {
                 obstacles[i].x -= 6;
-
-                // Comprobar si el obstáculo ha sido superado
+        
                 if (!obstacles[i].passed && obstacles[i].x + obstacles[i].width < player.x) {
-                    score++;
-                    obstacles[i].passed = true; // Marcar el obstáculo como superado
+                    updateScore(1); // Incrementa la puntuación por 1
+                    obstacles[i].passed = true;
                 }
-
+        
                 if (obstacles[i].x + obstacles[i].width < 0) {
                     obstacles.splice(i, 1);
                 }
             }
         }
+        
 
         function checkCollision(player, obstacle) {
             // Ajusta estos valores para hacer la hitbox más pequeña
@@ -106,6 +111,31 @@ function onImageLoad() {
             ctx.font = '24px Arial';
             ctx.fillText('Score: ' + score, canvas.width / 2 -140 , 60);
             ctx.fillText('High Score: ' + highScore, canvas.width / 2  , 60);
+        }
+
+        function updateScore(newPoints) {
+            score += newPoints;
+        
+            // Verifica si la puntuación aumentó en 10 puntos
+            if (score % 10 === 0) {
+                showPlusTen = true;
+                plusTenTimer = 120; // 2 segundos en frames (suponiendo 60fps)
+                plusTenPosition.x = player.x; // Ajusta según donde quieras mostrar el mensaje
+                plusTenPosition.y = player.y;
+            }
+        }
+
+        function drawPlusTen() {
+            if (showPlusTen) {
+                ctx.fillStyle = 'green'; // Elige el color del texto
+                ctx.font = '40px Arial'; // Elige el tamaño y estilo de la fuente
+                ctx.fillText('+10', plusTenPosition.x, plusTenPosition.y);
+        
+                plusTenTimer--;
+                if (plusTenTimer <= 0) {
+                    showPlusTen = false;
+                }
+            }
         }
 
         function gameOver() {
@@ -167,9 +197,12 @@ function onImageLoad() {
             player.update();
             updateObstacles();
             drawTapToJumpText();
+            drawPlusTen();
 
             for (let obstacle of obstacles) {
                 if (checkCollision(player, obstacle)) {
+                    looseSound.currentTime = 0; 
+                    looseSound.play();
                     gameRunning = false;
                     break;
                 }

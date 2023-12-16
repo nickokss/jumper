@@ -25,6 +25,8 @@ class Player {
         if (!this.isJumping) {
             this.velocityY = this.lift;
             this.isJumping = true;
+            jumpSound.currentTime = 0; 
+            jumpSound.play();
         }
     }
 
