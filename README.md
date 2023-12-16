@@ -1,4 +1,5 @@
-##JUMPER
+__JUMPER__
+
 Jumper is a jumping game, in which you will have to jump objects that appear on the screen.
 For each object you jump you earn 1 point.
 Go for your best score!
