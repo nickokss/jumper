@@ -120,14 +120,14 @@ function onImageLoad() {
             if (score % 10 === 0) {
                 showPlusTen = true;
                 plusTenTimer = 120; // 2 segundos en frames (suponiendo 60fps)
-                plusTenPosition.x = player.x; // Ajusta según donde quieras mostrar el mensaje
-                plusTenPosition.y = player.y;
+                plusTenPosition.x = canvas.width / 2 - 45; // Ajusta según donde quieras mostrar el mensaje
+                plusTenPosition.y = 120;
             }
         }
 
         function drawPlusTen() {
             if (showPlusTen) {
-                ctx.fillStyle = 'green'; // Elige el color del texto
+                ctx.fillStyle = '#505F32'; // Elige el color del texto
                 ctx.font = '40px Arial'; // Elige el tamaño y estilo de la fuente
                 ctx.fillText('+10', plusTenPosition.x, plusTenPosition.y);
         
