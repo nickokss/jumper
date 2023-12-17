@@ -6,4 +6,4 @@ For each object you jump you earn __1 point__.
 
 Go for your __best score__!
 
-You can play it here: https://jumper.tiiny.site/
+You can play it here: https://nickokss.codeberg.page
