@@ -8,5 +8,5 @@ Go for your __best score__!
 
 __You can play it here:__ https://nickokss.codeberg.page
 
-__Or download:__
+__Or download:__&nbsp;
 [<img src="https://github.com/simplex-chat/.github/blob/master/profile/images/apk_icon.png" alt="APK" height="41">]()
