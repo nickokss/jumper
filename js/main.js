@@ -4,10 +4,13 @@ import Player from './player.js';
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 const minObstacleSeparation = 400;
+const maxSpeed = 9.5;
 
 let score = 0;
 let highScore = 0;
+let speed = 5.5; 
 let gameRunning = true;
+let obstacles = [];
 
 //+10 points
 let showPlusTen = false;
@@ -34,22 +37,22 @@ function onImageLoad() {
         canvas.height = window.innerHeight;
 
         let player = new Player(ctx, canvas.height, skaterImage, skaterJumpingImage);
-        const obstacles = [];
 
         function addObstacle() {
             const nextObstacleX = Math.max(
                 canvas.width,
                 lastObstacleX + minObstacleSeparation + Math.random() * minObstacleSeparation
             );
-        
+
             // Decide aleatoriamente si el próximo obstáculo será un pájaro
-            const isBird = Math.random() < 0.15; // 15% de posibilidades de que sea un pájaro
-        
+            // 15% de posibilidades de que sea un pájaro
+            const isBird = Math.random() < 0.15;
+
             const obstacleImages = isBird ? [birdImage] : [coneImage, barrelImage, bushImage];
             const image = obstacleImages[Math.floor(Math.random() * obstacleImages.length)];
             
             // Si es un pájaro, ajusta la posición Y para que vuele más alto
-            const obstacleY = isBird ? (canvas.height / 2) : (canvas.height / 2 + 96); // Ajusta a 1/4 de la altura para los pájaros
+            const obstacleY = isBird ? (canvas.height / 2-10) : (canvas.height / 2 + 96); // Ajusta a 1/4 de la altura para los pájaros
             
             const obstacle = {
                 x: nextObstacleX,
@@ -61,7 +64,6 @@ function onImageLoad() {
             obstacles.push(obstacle);
             scheduleNextObstacle(); // Programar el próximo obstáculo
         }
-        
 
         //Dibuja el suelo
         function drawRoad() {
@@ -88,12 +90,24 @@ function onImageLoad() {
 
         function updateObstacles() {
             for (let i = obstacles.length - 1; i >= 0; i--) {
-                obstacles[i].x -= 6;
-        
-                if (!obstacles[i].passed && obstacles[i].x + obstacles[i].width < player.x) {
-                    updateScore(1); // Incrementa la puntuación por 1
-                    obstacles[i].passed = true;
+                obstacles[i].x -= speed;
+
+                // Pone sonido al pájaro cuando pasa por encima del skater
+                if (obstacles[i].image === birdImage && obstacles[i].x < player.x) {
+                    birdSound.play(); // Marcar que el sonido se ha reproducido para este obstáculo
                 }
+                
+                // Comprueba si el obstáculo ha sido superado y si es necesario incrementar la puntuación y el nivel
+                if (!obstacles[i].passed && obstacles[i].x + obstacles[i].width < player.x) {
+                    score++;
+                    obstacles[i].passed = true;
+                    updateScore(1); // Aumenta la puntuación por 1
+                    // Si cada obstáculo pasado cuenta como un nivel, llamas a passLevel aquí
+                    if (score % 3 === 0 && speed <= maxSpeed) { 
+                        speed += 0.25; 
+                    }
+                }
+                
         
                 if (obstacles[i].x + obstacles[i].width < 0) {
                     obstacles.splice(i, 1);
@@ -123,15 +137,13 @@ function onImageLoad() {
         }
 
         function updateScore(newPoints) {
-            score += newPoints;
-        
-            // Verifica si la puntuación aumentó en 10 puntos
-            if (score % 10 === 0) {
+            // Lógica para actualizar la puntuación y mostrar el mensaje "+10"
+            if (score % 10 === 0 && newPoints > 0) { // Asegúrate de que la puntuación haya aumentado
                 pointsSound.currentTime = 0; 
                 pointsSound.play();
                 showPlusTen = true;
                 plusTenTimer = 120; // 2 segundos en frames (suponiendo 60fps)
-                plusTenPosition.x = canvas.width / 2 - 45; // Ajusta según donde quieras mostrar el mensaje
+                plusTenPosition.x = canvas.width / 2 - 45;; // Ajusta para que aparezca cerca del jugador
                 plusTenPosition.y = 120;
             }
         }
