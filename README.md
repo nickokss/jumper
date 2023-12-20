@@ -11,4 +11,4 @@ __You can play it here:__ https://nickokss.codeberg.page
 __Or download:__
 
 
-[<img src="https://github.com/simplex-chat/.github/blob/master/profile/images/apk_icon.png" alt="APK" height="41">]()
+[<img src="https://github.com/simplex-chat/.github/blob/master/profile/images/apk_icon.png" alt="APK" height="41">](https://github.com/nickokss/jumper/releases/latest/download/jumper-1.8.0.apk)
