@@ -15,3 +15,4 @@ __Or download:__
 [<img src="https://github.com/nickokss/jumper/blob/main/website/src/img/apk_icon.png" alt="APK" height="41">](https://github.com/nickokss/jumper/releases/latest/download/jumper-2.0.apk)
 [<img src="https://github.com/nickokss/jumper/blob/main/website/src/img/itchio.png" alt="ITCHIO" height="38">](https://nickokss.itch.io/jumper)
 
+<img src="https://github.com/nickokss/jumper/blob/main/website/src/img/captura.png" alt="INGAME" height="400">
