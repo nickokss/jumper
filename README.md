@@ -1,6 +1,6 @@
 __JUMPER__
 
-Jumper is a jumping game, in which you will have to jump objects that appear on the screen.
+Jumper is a jumping game, in which you will have to jump objects that appear on the screen. 
 
 For each object you jump you earn __1 point__.
 
